@@ -21,10 +21,10 @@ stages:
         provider: 'azurerm'
         command: 'init'
         backendServiceArm: 'ADO_to_Azure_ServiceConnection'
-        backendAzureRmResourceGroupName: 'rg-c2s-internal-srikanthk'
-        backendAzureRmStorageAccountName: 'srikanth2store'
-        backendAzureRmContainerName: 'mystate'
-        backendAzureRmKey: 'prod.terraform.tfstate'
+        #backendAzureRmResourceGroupName: 'rg-c2s-internal-srikanthk'
+        #backendAzureRmStorageAccountName: 'srikanth2store'
+        #backendAzureRmContainerName: 'mystate'
+        #backendAzureRmKey: 'prod.terraform.tfstate'
     - task: TerraformTaskV4@4
       displayName: Tf-validate
       inputs:
