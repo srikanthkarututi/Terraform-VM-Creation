@@ -1,0 +1,5 @@
+prefix = "NewDemo"
+location = "West US"
+computer_name = "hostname"
+admin_username = "testadmin"
+admin_password = "Srikku@6777"
