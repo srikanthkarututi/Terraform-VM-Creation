@@ -3,37 +3,38 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
+
 trigger:
 - srikanth
 
-pool:
-  vmImage: ubuntu-latest
 
-steps:
-- task: TerraformTaskV4@4
-  inputs:
-    provider: 'azurerm'
-    command: 'init'
-    backendServiceArm: 'ADO_to_Azure_ServiceConnection'
-    backendAzureRmResourceGroupName: 'rg-c2s-internal-srikanthk'
-    backendAzureRmStorageAccountName: 'srikanth2store'
-    backendAzureRmContainerName: 'mystate'
-    backendAzureRmKey: 'prod.terraform.tfstate'
-    
-
-- task: TerraformTaskV4@4
-  inputs:
-    provider: 'azurerm'
-    command: 'validate'
-
-- task: TerraformTaskV4@4
-  inputs:
-    provider: 'azurerm'
-    command: 'plan'
-    environmentServiceNameAzureRM: 'ADO_to_Azure_ServiceConnection'
-
-- task: TerraformTaskV4@4
-  inputs:
-    provider: 'azurerm'
-    command: 'apply'
-    environmentServiceNameAzureRM: 'ADO_to_Azure_ServiceConnection'
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'ADO_to_Azure_ServiceConnection'
+        backendAzureRmResourceGroupName: 'rg-c2s-internal-srikanthk'
+        backendAzureRmStorageAccountName: 'srikanth2store'
+        backendAzureRmContainerName: 'mystate'
+        backendAzureRmKey: 'prod.terraform.tfstate'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        environmentServiceNameAzureRM: 'ADO_to_Azure_ServiceConnection'
+    - task: TerraformTaskV4@4
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        environmentServiceNameAzureRM: 'ADO_to_Azure_ServiceConnection'
