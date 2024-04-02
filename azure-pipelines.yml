@@ -16,6 +16,7 @@ stages:
       vmImage: 'ubuntu-latest'
     steps:
     - task: TerraformTaskV4@4
+      displayName: Tf-init
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -25,15 +26,18 @@ stages:
         backendAzureRmContainerName: 'mystate'
         backendAzureRmKey: 'prod.terraform.tfstate'
     - task: TerraformTaskV4@4
+      displayName: Tf-validate
       inputs:
         provider: 'azurerm'
         command: 'validate'
     - task: TerraformTaskV4@4
+      displayName: Tf-plan
       inputs:
         provider: 'azurerm'
         command: 'plan'
         environmentServiceNameAzureRM: 'ADO_to_Azure_ServiceConnection'
     - task: TerraformTaskV4@4
+      displayName: Tf-apply
       inputs:
         provider: 'azurerm'
         command: 'apply'
